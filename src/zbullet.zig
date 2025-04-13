@@ -17,6 +17,7 @@ pub const TriangleMeshShape = *align(@sizeOf(usize)) TriangleMeshShapeImpl;
 pub const Body = *align(@sizeOf(usize)) BodyImpl;
 pub const Constraint = *align(@sizeOf(usize)) ConstraintImpl;
 pub const Point2PointConstraint = *align(@sizeOf(usize)) Point2PointConstraintImpl;
+pub const HingeConstraint = *align(@sizeOf(usize)) HingeConstraintImpl;
 
 pub const AllocFn = *const fn (size: usize, alignment: i32) callconv(.C) ?*anyopaque;
 pub const FreeFn = *const fn (ptr: ?*anyopaque) callconv(.C) void;
@@ -827,6 +828,7 @@ const BodyImpl = opaque {
 pub const ConstraintType = enum(c_int) {
     _dummy = 0, // TODO: Self-hosted bug.
     point2point = 3,
+    hinge = 4,
 };
 
 const ConstraintImpl = opaque {
@@ -949,6 +951,63 @@ const Point2PointConstraintImpl = opaque {
 
     pub const setImpulseClamp = cbtConPoint2PointSetImpulseClamp;
     extern fn cbtConPoint2PointSetImpulseClamp(con: Point2PointConstraint, impulse_clamp: f32) void;
+};
+
+pub fn allocHingeConstraint() HingeConstraint {
+    return HingeConstraintImpl.alloc();
+}
+
+const HingeConstraintImpl = opaque {
+    pub usingnamespace ConstraintFunctions(HingeConstraint);
+
+    fn alloc() HingeConstraint {
+        return @as(HingeConstraint, @ptrCast(ConstraintImpl.alloc(.hinge)));
+    }
+
+    pub const create1 = cbtConHingeCreate1;
+    extern fn cbtConHingeCreate1(
+        con: HingeConstraint,
+        body: Body,
+        pivot: *const [3]f32,
+        axis: *const [3]f32,
+        use_reference_frame: bool,
+    ) void;
+
+    pub const create2 = cbtConHingeCreate2;
+    extern fn cbtConHingeCreate2(
+        con: HingeConstraint,
+        body_a: Body,
+        body_b: Body,
+        pivot_a: *const [3]f32,
+        pivot_b: *const [3]f32,
+        axis_a: *const [3]f32,
+        axis_b: *const [3]f32,
+        use_reference_frame: bool,
+    ) void;
+
+    pub const setAngularOnly = cbtConHingeSetAngularOnly;
+    extern fn cbtConHingeSetAngularOnly(
+        con: HingeConstraint,
+        angular_only: bool,
+    ) void;
+
+    pub const enableAngularMotor = cbtConHingeEnableAngularMotor;
+    extern fn cbtConHingeEnableAngularMotor(
+        con: HingeConstraint,
+        enable: bool,
+        target_velocity: f32,
+        max_motor_impulse: f32,
+    ) void;
+
+    pub const setLimit = cbtConHingeSetLimit;
+    extern fn cbtConHingeSetLimit(
+        con: HingeConstraint,
+        low: f32,
+        high: f32,
+        softness: f32,
+        bias_factor: f32,
+        relaxation_factor: f32,
+    ) void;
 };
 
 pub const DebugMode = packed struct {
