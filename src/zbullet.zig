@@ -867,6 +867,19 @@ const ConstraintImpl = opaque {
 
     pub const setDebugDrawSize = cbtConSetDebugDrawSize;
     extern fn cbtConSetDebugDrawSize(con: Constraint, size: f32) void;
+
+    pub fn as(con: Constraint, comptime ctype: ConstraintType) switch (ctype) {
+        .point2point => Point2PointConstraint,
+        .hinge => HingeConstraint,
+        else => noreturn,
+    } {
+        std.debug.assert(con.getType() == ctype);
+        return switch (ctype) {
+            .point2point => @as(Point2PointConstraint, @ptrCast(con)),
+            .hinge => @as(HingeConstraint, @ptrCast(con)),
+            else => unreachable,
+        };
+    }
 };
 
 fn ConstraintFunctions(comptime T: type) type {
