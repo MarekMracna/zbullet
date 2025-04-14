@@ -565,6 +565,11 @@ void cbtConD6Spring2SetAngularLowerLimit(CbtConstraintHandle con_handle, const C
 void cbtConD6Spring2SetAngularUpperLimit(CbtConstraintHandle con_handle, const CbtVector3 limit);
 void cbtConD6Spring2GetAngularLowerLimit(CbtConstraintHandle con_handle, CbtVector3 limit);
 void cbtConD6Spring2GetAngularUpperLimit(CbtConstraintHandle con_handle, CbtVector3 limit);
+void cbtConD6Spring2EnableMotor(CbtConstraintHandle con_handle, int index, bool on_off);
+void cbtConD6Spring2SetServo(CbtConstraintHandle con_handle, int index, bool on_off);
+void cbtConD6Spring2SetTargetVelocity(CbtConstraintHandle con_handle, int index, float velocity);
+void cbtConD6Spring2SetServoTarget(CbtConstraintHandle con_handle, int index, float target);
+void cbtConD6Spring2SetMaxMotorForce(CbtConstraintHandle con_handle, int index, float force);
 
 // Cone Twist
 void cbtConConeTwistCreate1(

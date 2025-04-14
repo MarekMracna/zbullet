@@ -2214,6 +2214,37 @@ void cbtConD6Spring2GetAngularUpperLimit(CbtConstraintHandle con_handle, CbtVect
     limit[2] = lim.z();
 }
 
+void cbtConD6Spring2EnableMotor(CbtConstraintHandle con_handle, int index, bool on_off) {
+    assert(con_handle && cbtConIsCreated(con_handle));
+    assert(cbtConGetType(con_handle) == CBT_CONSTRAINT_TYPE_D6_SPRING_2);
+    auto con = (btGeneric6DofSpring2Constraint*)con_handle;
+    con->enableMotor(index, on_off);
+}
+void cbtConD6Spring2SetServo(CbtConstraintHandle con_handle, int index, bool on_off) {
+    assert(con_handle && cbtConIsCreated(con_handle));
+    assert(cbtConGetType(con_handle) == CBT_CONSTRAINT_TYPE_D6_SPRING_2);
+    auto con = (btGeneric6DofSpring2Constraint*)con_handle;
+    con->setServo(index, on_off);
+}
+void cbtConD6Spring2SetTargetVelocity(CbtConstraintHandle con_handle, int index, float velocity) {
+    assert(con_handle && cbtConIsCreated(con_handle));
+    assert(cbtConGetType(con_handle) == CBT_CONSTRAINT_TYPE_D6_SPRING_2);
+    auto con = (btGeneric6DofSpring2Constraint*)con_handle;
+    con->setTargetVelocity(index, velocity);
+}
+void cbtConD6Spring2SetServoTarget(CbtConstraintHandle con_handle, int index, float target) {
+    assert(con_handle && cbtConIsCreated(con_handle));
+    assert(cbtConGetType(con_handle) == CBT_CONSTRAINT_TYPE_D6_SPRING_2);
+    auto con = (btGeneric6DofSpring2Constraint*)con_handle;
+    con->setServoTarget(index, target);
+}
+void cbtConD6Spring2SetMaxMotorForce(CbtConstraintHandle con_handle, int index, float force) {
+    assert(con_handle && cbtConIsCreated(con_handle));
+    assert(cbtConGetType(con_handle) == CBT_CONSTRAINT_TYPE_D6_SPRING_2);
+    auto con = (btGeneric6DofSpring2Constraint*)con_handle;
+    con->setMaxMotorForce(index, force);
+}
+
 void cbtConConeTwistCreate1(
     CbtConstraintHandle con_handle,
     CbtBodyHandle body_handle_a,
