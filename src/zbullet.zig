@@ -1147,6 +1147,47 @@ const Generic6DofSpring2ConstraintImpl = opaque {
         index: c_int,
         force: f32,
     ) void;
+
+    pub const enableSpring = cbtConD6Spring2EnableSpring;
+    extern fn cbtConD6Spring2EnableSpring(
+        con_handle: Generic6DofSpring2Constraint,
+        index: c_int,
+        on_off: bool,
+    ) void;
+
+    pub const setStiffness = cbtConD6Spring2SetStiffness;
+    extern fn cbtConD6Spring2SetStiffness(
+        con_handle: Generic6DofSpring2Constraint,
+        index: c_int,
+        stiffness: f32,
+        limit_if_needed: bool,
+    ) void;
+
+    pub const setDamping = cbtConD6Spring2SetDamping;
+    extern fn cbtConD6Spring2SetDamping(
+        con_handle: Generic6DofSpring2Constraint,
+        index: c_int,
+        damping: f32,
+        limit_if_needed: bool,
+    ) void;
+
+    pub const setEquilibriumPoint = cbtConD6Spring2SetEquilibriumPoint;
+    extern fn cbtConD6Spring2SetEquilibriumPoint(
+        con_handle: Generic6DofSpring2Constraint,
+    ) void;
+
+    pub const setEquilibriumPointSingle = cbtConD6Spring2SetEquilibriumPointSingle;
+    extern fn cbtConD6Spring2SetEquilibriumPointSingle(
+        con_handle: Generic6DofSpring2Constraint,
+        index: c_int,
+    ) void;
+
+    pub const setEquilibriumPointValue = cbtConD6Spring2SetEquilibriumPointValue;
+    extern fn cbtConD6Spring2SetEquilibriumPointValue(
+        con_handle: Generic6DofSpring2Constraint,
+        index: c_int,
+        val: f32,
+    ) void;
 };
 
 pub const DebugMode = packed struct {
