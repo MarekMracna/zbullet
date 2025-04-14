@@ -18,6 +18,7 @@ pub const Body = *align(@sizeOf(usize)) BodyImpl;
 pub const Constraint = *align(@sizeOf(usize)) ConstraintImpl;
 pub const Point2PointConstraint = *align(@sizeOf(usize)) Point2PointConstraintImpl;
 pub const HingeConstraint = *align(@sizeOf(usize)) HingeConstraintImpl;
+pub const Generic6DofSpring2Constraint = *align(@sizeOf(usize)) Generic6DofSpring2ConstraintImpl;
 
 pub const AllocFn = *const fn (size: usize, alignment: i32) callconv(.C) ?*anyopaque;
 pub const FreeFn = *const fn (ptr: ?*anyopaque) callconv(.C) void;
@@ -829,6 +830,7 @@ pub const ConstraintType = enum(c_int) {
     _dummy = 0, // TODO: Self-hosted bug.
     point2point = 3,
     hinge = 4,
+    generic6dof2 = 12,
 };
 
 const ConstraintImpl = opaque {
@@ -871,12 +873,14 @@ const ConstraintImpl = opaque {
     pub fn as(con: Constraint, comptime ctype: ConstraintType) switch (ctype) {
         .point2point => Point2PointConstraint,
         .hinge => HingeConstraint,
+        .generic6dof2 => Generic6DofSpring2Constraint,
         else => noreturn,
     } {
         std.debug.assert(con.getType() == ctype);
         return switch (ctype) {
             .point2point => @as(Point2PointConstraint, @ptrCast(con)),
             .hinge => @as(HingeConstraint, @ptrCast(con)),
+            .generic6dof2 => @as(Generic6DofSpring2Constraint, @ptrCast(con)),
             else => unreachable,
         };
     }
@@ -1020,6 +1024,93 @@ const HingeConstraintImpl = opaque {
         softness: f32,
         bias_factor: f32,
         relaxation_factor: f32,
+    ) void;
+};
+
+pub const RotateOrder = enum(c_int) {
+    xyz = 0,
+    xzy = 1,
+    yxz = 2,
+    yzx = 3,
+    zxy = 4,
+    zyx = 5,
+};
+
+pub fn allocGeneric6DofConstraint() Generic6DofSpring2Constraint {
+    return Generic6DofSpring2ConstraintImpl.alloc();
+}
+
+const Generic6DofSpring2ConstraintImpl = opaque {
+    pub usingnamespace ConstraintFunctions(Generic6DofSpring2Constraint);
+
+    fn alloc() Generic6DofSpring2Constraint {
+        return @as(Generic6DofSpring2Constraint, @ptrCast(ConstraintImpl.alloc(.generic6dof2)));
+    }
+
+    pub const create1 = cbtConD6Spring2Create1;
+    extern fn cbtConD6Spring2Create1(
+        con: Generic6DofSpring2Constraint,
+        body: Body,
+        frame: *const [12]f32,
+        rotate_order: RotateOrder,
+    ) void;
+
+    pub const create2 = cbtConD6Spring2Create2;
+    extern fn cbtConD6Spring2Create2(
+        con: Generic6DofSpring2Constraint,
+        body_a: Body,
+        body_b: Body,
+        frame_a: *const [12]f32,
+        frame_b: *const [12]f32,
+        rotate_order: RotateOrder,
+    ) void;
+
+    pub const setLinearLowerLimit = cbtConD6Spring2SetLinearLowerLimit;
+    extern fn cbtConD6Spring2SetLinearLowerLimit(
+        con: Generic6DofSpring2Constraint,
+        limit: *const [3]f32,
+    ) void;
+
+    pub const setLinearUpperLimit = cbtConD6Spring2SetLinearUpperLimit;
+    extern fn cbtConD6Spring2SetLinearUpperLimit(
+        con: Generic6DofSpring2Constraint,
+        limit: *const [3]f32,
+    ) void;
+
+    pub const getLinearLowerLimit = cbtConD6Spring2GetLinearLowerLimit;
+    extern fn cbtConD6Spring2GetLinearLowerLimit(
+        con: Generic6DofSpring2Constraint,
+        limit: *[3]f32,
+    ) void;
+
+    pub const getLinearUpperLimit = cbtConD6Spring2GetLinearUpperLimit;
+    extern fn cbtConD6Spring2GetLinearUpperLimit(
+        con: Generic6DofSpring2Constraint,
+        limit: *[3]f32,
+    ) void;
+
+    pub const setAngularLowerLimit = cbtConD6Spring2SetAngularLowerLimit;
+    extern fn cbtConD6Spring2SetAngularLowerLimit(
+        con: Generic6DofSpring2Constraint,
+        limit: *const [3]f32,
+    ) void;
+
+    pub const setAngularUpperLimit = cbtConD6Spring2SetAngularUpperLimit;
+    extern fn cbtConD6Spring2SetAngularUpperLimit(
+        con: Generic6DofSpring2Constraint,
+        limit: *const [3]f32,
+    ) void;
+
+    pub const getAngularLowerLimit = cbtConD6Spring2GetAngularLowerLimit;
+    extern fn cbtConD6Spring2GetAngularLowerLimit(
+        con: Generic6DofSpring2Constraint,
+        limit: *[3]f32,
+    ) void;
+
+    pub const getAngularUpperLimit = cbtConD6Spring2GetAngularUpperLimit;
+    extern fn cbtConD6Spring2GetAngularUpperLimit(
+        con: Generic6DofSpring2Constraint,
+        limit: *[3]f32,
     ) void;
 };
 
