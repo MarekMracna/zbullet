@@ -479,6 +479,7 @@ void cbtConHingeSetLimit(
     float bias_factor, // 0.3
     float relaxation_factor // 1.0
 );
+float cbtConHingeGetHingeAngle(CbtConstraintHandle con_handle);
 
 // Gear
 void cbtConGearCreate(

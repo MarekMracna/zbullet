@@ -1836,6 +1836,14 @@ void cbtConHingeSetLimit(
     con->setLimit(low, high, softness, bias_factor, relaxation_factor);
 }
 
+float cbtConHingeGetHingeAngle(CbtConstraintHandle con_handle) {
+    assert(con_handle && cbtConIsCreated(con_handle));
+    assert(cbtConGetType(con_handle) == CBT_CONSTRAINT_TYPE_HINGE);
+    auto con = (btHingeConstraint*)con_handle;
+    return con->getHingeAngle();
+}
+
+
 void cbtConGearCreate(
     CbtConstraintHandle con_handle,
     CbtBodyHandle body_handle_a,

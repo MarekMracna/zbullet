@@ -1025,6 +1025,11 @@ const HingeConstraintImpl = opaque {
         bias_factor: f32,
         relaxation_factor: f32,
     ) void;
+
+    pub const getHingeAngle = cbtConHingeGetHingeAngle;
+    extern fn cbtConHingeGetHingeAngle(
+        con: HingeConstraint,
+    ) f32;
 };
 
 pub const RotateOrder = enum(c_int) {
