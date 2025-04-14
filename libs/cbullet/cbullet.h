@@ -571,6 +571,13 @@ void cbtConD6Spring2SetTargetVelocity(CbtConstraintHandle con_handle, int index,
 void cbtConD6Spring2SetServoTarget(CbtConstraintHandle con_handle, int index, float target);
 void cbtConD6Spring2SetMaxMotorForce(CbtConstraintHandle con_handle, int index, float force);
 
+void cbtConD6Spring2EnableSpring(CbtConstraintHandle con_handle, int index, bool on_off);
+void cbtConD6Spring2SetStiffness(CbtConstraintHandle con_handle, int index, float stiffness, bool limit_if_needed);
+void cbtConD6Spring2SetDamping(CbtConstraintHandle con_handle, int index, float damping, bool limit_if_needed);
+void cbtConD6Spring2SetEquilibriumPoint(CbtConstraintHandle con_handle);
+void cbtConD6Spring2SetEquilibriumPointSingle(CbtConstraintHandle con_handle, int index);
+void cbtConD6Spring2SetEquilibriumPointValue(CbtConstraintHandle con_handle, int index, float val);
+
 // Cone Twist
 void cbtConConeTwistCreate1(
     CbtConstraintHandle con_handle,

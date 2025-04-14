@@ -2245,6 +2245,48 @@ void cbtConD6Spring2SetMaxMotorForce(CbtConstraintHandle con_handle, int index, 
     con->setMaxMotorForce(index, force);
 }
 
+void cbtConD6Spring2EnableSpring(CbtConstraintHandle con_handle, int index, bool on_off) {
+    assert(con_handle && cbtConIsCreated(con_handle));
+    assert(cbtConGetType(con_handle) == CBT_CONSTRAINT_TYPE_D6_SPRING_2);
+    auto con = (btGeneric6DofSpring2Constraint*)con_handle;
+    con->enableSpring(index, on_off);
+}
+
+void cbtConD6Spring2SetStiffness(CbtConstraintHandle con_handle, int index, float stiffness, bool limit_if_needed) {
+    assert(con_handle && cbtConIsCreated(con_handle));
+    assert(cbtConGetType(con_handle) == CBT_CONSTRAINT_TYPE_D6_SPRING_2);
+    auto con = (btGeneric6DofSpring2Constraint*)con_handle;
+    con->setStiffness(index, stiffness, limit_if_needed);
+}
+
+void cbtConD6Spring2SetDamping(CbtConstraintHandle con_handle, int index, float damping, bool limit_if_needed) {
+    assert(con_handle && cbtConIsCreated(con_handle));
+    assert(cbtConGetType(con_handle) == CBT_CONSTRAINT_TYPE_D6_SPRING_2);
+    auto con = (btGeneric6DofSpring2Constraint*)con_handle;
+    con->setDamping(index, damping, limit_if_needed);
+}
+
+void cbtConD6Spring2SetEquilibriumPoint(CbtConstraintHandle con_handle) {
+    assert(con_handle && cbtConIsCreated(con_handle));
+    assert(cbtConGetType(con_handle) == CBT_CONSTRAINT_TYPE_D6_SPRING_2);
+    auto con = (btGeneric6DofSpring2Constraint*)con_handle;
+    con->setEquilibriumPoint();
+}
+
+void cbtConD6Spring2SetEquilibriumPointSingle(CbtConstraintHandle con_handle, int index) {
+    assert(con_handle && cbtConIsCreated(con_handle));
+    assert(cbtConGetType(con_handle) == CBT_CONSTRAINT_TYPE_D6_SPRING_2);
+    auto con = (btGeneric6DofSpring2Constraint*)con_handle;
+    con->setEquilibriumPoint(index);
+}
+
+void cbtConD6Spring2SetEquilibriumPointValue(CbtConstraintHandle con_handle, int index, float val) {
+    assert(con_handle && cbtConIsCreated(con_handle));
+    assert(cbtConGetType(con_handle) == CBT_CONSTRAINT_TYPE_D6_SPRING_2);
+    auto con = (btGeneric6DofSpring2Constraint*)con_handle;
+    con->setEquilibriumPoint(index, val);
+}
+
 void cbtConConeTwistCreate1(
     CbtConstraintHandle con_handle,
     CbtBodyHandle body_handle_a,
