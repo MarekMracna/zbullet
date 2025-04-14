@@ -2142,6 +2142,20 @@ void cbtConD6Spring2Create2(
     );
 }
 
+void cbtConD6Spring2CalculateTransforms(CbtConstraintHandle con_handle) {
+    assert(con_handle && cbtConIsCreated(con_handle));
+    assert(cbtConGetType(con_handle) == CBT_CONSTRAINT_TYPE_D6_SPRING_2);
+    auto con = (btGeneric6DofSpring2Constraint*)con_handle;
+    con->calculateTransforms();
+}
+
+float cbtConD6Spring2GetAngle(CbtConstraintHandle con_handle, int axis_index) {
+    assert(con_handle && cbtConIsCreated(con_handle));
+    assert(cbtConGetType(con_handle) == CBT_CONSTRAINT_TYPE_D6_SPRING_2);
+    auto con = (btGeneric6DofSpring2Constraint*)con_handle;
+    return con->getAngle(axis_index);
+}
+
 void cbtConD6Spring2SetLinearLowerLimit(CbtConstraintHandle con_handle, const CbtVector3 limit) {
     assert(con_handle && cbtConIsCreated(con_handle));
     assert(cbtConGetType(con_handle) == CBT_CONSTRAINT_TYPE_D6_SPRING_2);

@@ -557,6 +557,10 @@ void cbtConD6Spring2Create2(
     const CbtVector3 frame_b[4],
     int rotate_order // CBT_ROTATE_ORDER_XYZ
 );
+
+void cbtConD6Spring2CalculateTransforms(CbtConstraintHandle con_handle);
+float cbtConD6Spring2GetAngle(CbtConstraintHandle con_handle, int axis_index);
+
 void cbtConD6Spring2SetLinearLowerLimit(CbtConstraintHandle con_handle, const CbtVector3 limit);
 void cbtConD6Spring2SetLinearUpperLimit(CbtConstraintHandle con_handle, const CbtVector3 limit);
 void cbtConD6Spring2GetLinearLowerLimit(CbtConstraintHandle con_handle, CbtVector3 limit);

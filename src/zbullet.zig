@@ -1070,6 +1070,17 @@ const Generic6DofSpring2ConstraintImpl = opaque {
         rotate_order: RotateOrder,
     ) void;
 
+    pub const calculateTransforms = cbtConD6Spring2CalculateTransforms;
+    extern fn cbtConD6Spring2CalculateTransforms(
+        con: Generic6DofSpring2Constraint,
+    ) void;
+
+    pub const getAngle = cbtConD6Spring2GetAngle;
+    extern fn cbtConD6Spring2GetAngle(
+        con: Generic6DofSpring2Constraint,
+        axis_index: c_int,
+    ) f32;
+
     pub const setLinearLowerLimit = cbtConD6Spring2SetLinearLowerLimit;
     extern fn cbtConD6Spring2SetLinearLowerLimit(
         con: Generic6DofSpring2Constraint,
