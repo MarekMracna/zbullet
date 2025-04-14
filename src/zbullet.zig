@@ -1112,6 +1112,41 @@ const Generic6DofSpring2ConstraintImpl = opaque {
         con: Generic6DofSpring2Constraint,
         limit: *[3]f32,
     ) void;
+
+    pub const enableMotor = cbtConD6Spring2EnableMotor;
+    extern fn cbtConD6Spring2EnableMotor(
+        con_handle: Generic6DofSpring2Constraint,
+        index: c_int,
+        on_off: bool,
+    ) void;
+
+    pub const setServo = cbtConD6Spring2SetServo;
+    extern fn cbtConD6Spring2SetServo(
+        con_handle: Generic6DofSpring2Constraint,
+        index: c_int,
+        on_off: bool,
+    ) void;
+
+    pub const setTargetVelocity = cbtConD6Spring2SetTargetVelocity;
+    extern fn cbtConD6Spring2SetTargetVelocity(
+        con_handle: Generic6DofSpring2Constraint,
+        index: c_int,
+        velocity: f32,
+    ) void;
+
+    pub const setServoTarget = cbtConD6Spring2SetServoTarget;
+    extern fn cbtConD6Spring2SetServoTarget(
+        con_handle: Generic6DofSpring2Constraint,
+        index: c_int,
+        target: f32,
+    ) void;
+
+    pub const setMaxMotorForce = cbtConD6Spring2SetMaxMotorForce;
+    extern fn cbtConD6Spring2SetMaxMotorForce(
+        con_handle: Generic6DofSpring2Constraint,
+        index: c_int,
+        force: f32,
+    ) void;
 };
 
 pub const DebugMode = packed struct {
