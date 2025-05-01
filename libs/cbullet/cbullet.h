@@ -74,10 +74,24 @@
 #define CBT_ROTATE_ORDER_ZXY 4
 #define CBT_ROTATE_ORDER_ZYX 5
 
-#define CBT_DBGMODE_DISABLED -1
-#define CBT_DBGMODE_NO_DEBUG 0
-#define CBT_DBGMODE_DRAW_WIREFRAME 1
-#define CBT_DBGMODE_DRAW_AABB 2
+#define CBT_DBGMODE_DISABLED                 -1
+#define CBT_DBGMODE_NO_DEBUG                 0
+#define CBT_DBGMODE_DRAW_WIREFRAME           1
+#define CBT_DBGMODE_DRAW_AABB                2
+#define CBT_DBGMODE_DRAW_FEATURES_TEXT       4
+#define CBT_DBGMODE_DRAW_CONTACT_POINTS      8
+#define CBT_DBGMODE_NO_DEACTIVATION          16
+#define CBT_DBGMODE_NO_HELP_TEXT             32
+#define CBT_DBGMODE_DRAW_TEXT                64
+#define CBT_DBGMODE_PROFILE_TIMINGS          128
+#define CBT_DBGMODE_ENABLE_SAT_COMPARISON    256
+#define CBT_DBGMODE_DISABLE_BULLET_LCP       512
+#define CBT_DBGMODE_ENABLE_CCD               1024
+#define CBT_DBGMODE_DRAW_CONSTRAINTS         (1 << 11)
+#define CBT_DBGMODE_DRAW_CONSTRAINT_LIMITS   (1 << 12)
+#define CBT_DBGMODE_FAST_WIREFRAME           (1 << 13)
+#define CBT_DBGMODE_DRAW_NORMALS             (1 << 14)
+#define CBT_DBGMODE_DRAW_FRAMES              (1 << 15)
 
 typedef float CbtVector3[3];
 

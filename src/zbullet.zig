@@ -1209,8 +1209,20 @@ const Generic6DofSpring2ConstraintImpl = opaque {
 pub const DebugMode = packed struct {
     draw_wireframe: bool = false,
     draw_aabb: bool = false,
-
-    _pad0: u14 = 0,
+    draw_features_text: bool = false,
+    draw_contact_points: bool = false,
+    no_deactivation: bool = false,
+    no_help_text: bool = false,
+    draw_text: bool = false,
+    profile_timings: bool = false,
+    enable_sat_comparison: bool = false,
+    disable_bullet_lcp: bool = false,
+    enable_ccd: bool = false,
+    draw_constraints: bool = false,
+    draw_constraint_limits: bool = false,
+    fast_wireframe: bool = false,
+    draw_normals: bool = false,
+    draw_frames: bool = false,
     _pad1: u16 = 0,
 
     pub const disabled = @as(DebugMode, @bitCast(~@as(u32, 0)));
